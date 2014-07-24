@@ -46,4 +46,4 @@ function (build_type_dependent_include DIRECTORY BUILD_TYPE SUFFIX)
     
     add_subdirectory("${DIRECTORY}" "${CMAKE_CURRENT_BINARY_DIR}/${DIRECTORY}${TARGET_SUFFIX}")
 
-endfunction (target_suffix_dependent_include)
+endfunction (build_type_dependent_include)
