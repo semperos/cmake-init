@@ -1,0 +1,15 @@
+function (configure_compiler)
+
+    if(MSVC)
+        include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/PlatformWindowsMSVC.cmake)
+    elseif(WIN32 AND CMAKE_COMPILER_IS_GNUCXX)
+        include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/PlatformWindowsGCC.cmake)
+    elseif(APPLE)
+        include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/PlatformMacOS.cmake)
+    elseif(UNIX)
+        include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/PlatformLinuxGCC.cmake)
+    else()
+        message(WARNING "Unsupported platform/compiler combination")
+    endif()
+
+endfunction (configure_compiler)

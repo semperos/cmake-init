@@ -1,5 +1,7 @@
 
-set(target fiblib-test)
+set(targetname fiblib-test)
+set(target "${targetname}${TARGET_SUFFIX}")
+
 message(STATUS "Test ${target}")
 
 #
@@ -22,7 +24,7 @@ include_directories(
 set(libs
     ${GMOCK_LIBRARIES}
     ${GTEST_LIBRARIES}
-    fiblib
+    fiblib${TARGET_SUFFIX}
 )
 
 #
@@ -59,4 +61,4 @@ set_target_properties(${target}
     COMPILE_FLAGS               "${DEFAULT_COMPILE_FLAGS}"
     LINK_FLAGS_DEBUG            "${DEFAULT_LINKER_FLAGS_DEBUG}"
     LINK_FLAGS_RELEASE          "${DEFAULT_LINKER_FLAGS_RELEASE}"
-    DEBUG_POSTFIX               "d${DEBUG_POSTFIX}")
+    DEBUG_POSTFIX               "${DEBUG_POSTFIX}")

@@ -1,4 +1,6 @@
 
+message(STATUS "Include source directory ${TARGET_SUFFIX}")
+
 # Generate meta-header
 configure_file(template-version.h.in ${CMAKE_CURRENT_BINARY_DIR}/template-version.h)
 

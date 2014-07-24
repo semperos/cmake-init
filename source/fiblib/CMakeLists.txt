@@ -1,5 +1,7 @@
 
-set(target fiblib)
+set(targetname fiblib)
+set(target "${targetname}${TARGET_SUFFIX}")
+
 message(STATUS "Lib ${target}")
 
 #
@@ -43,7 +45,7 @@ endif()
 # Sources
 #
 
-set(include_path "${CMAKE_CURRENT_SOURCE_DIR}/include/${target}")
+set(include_path "${CMAKE_CURRENT_SOURCE_DIR}/include/${targetname}")
 set(source_path "${CMAKE_CURRENT_SOURCE_DIR}/source")
 
 set(api_includes
@@ -80,7 +82,7 @@ set_target_properties(${target}
     COMPILE_FLAGS               "${DEFAULT_COMPILE_FLAGS}"
     LINK_FLAGS_DEBUG            "${DEFAULT_LINKER_FLAGS_DEBUG}"
     LINK_FLAGS_RELEASE          "${DEFAULT_LINKER_FLAGS_RELEASE}"
-    DEBUG_POSTFIX               "d${DEBUG_POSTFIX}"
+    DEBUG_POSTFIX               "${DEBUG_POSTFIX}"
     INCLUDE_PATH	            ${include_path})
 
 #
@@ -95,4 +97,4 @@ install(TARGETS ${target}
 )
 
 # Header files
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/${target} DESTINATION ${INSTALL_INCLUDE})
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/${targetname} DESTINATION ${INSTALL_INCLUDE})

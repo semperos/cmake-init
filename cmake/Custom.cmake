@@ -34,3 +34,16 @@ function (list_extract OUTPUT REGEX)
     endforeach()
 
 endfunction (list_extract)
+
+
+
+function (build_type_dependent_include DIRECTORY BUILD_TYPE SUFFIX)
+
+    set(CMAKE_BUILD_TYPE "${BUILD_TYPE}")
+    set(TARGET_SUFFIX "${SUFFIX}")
+    
+    configure_compiler()
+    
+    add_subdirectory("${DIRECTORY}" "${CMAKE_CURRENT_BINARY_DIR}/${DIRECTORY}${TARGET_SUFFIX}")
+
+endfunction (target_suffix_dependent_include)

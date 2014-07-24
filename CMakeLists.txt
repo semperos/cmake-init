@@ -66,10 +66,16 @@ set(IDE_FOLDER "")
 
 # Include custom cmake functions
 include(cmake/Custom.cmake)
+include(cmake/PlatformInclude.cmake)
 include(cmake/GitRevision.cmake)
 
 
-
+# This policy was introduced in 3.0.0 and does not allow for COMPILER_DEFINITIONS_<Config>,
+# anymore, but instead requires generator expressions like $<CONFIG:Debug> ... 
+# For now the current compile-flag, -definitions, and linker-flags setup shall remain as is.
+if(POLICY CMP0043)
+    cmake_policy(SET CMP0043 OLD)
+endif()
 
 #
 # Platform and architecture setup
@@ -81,29 +87,8 @@ if(CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(X64 ON)
 endif()
 
-# Setup platform specifics (compile flags, etc., ...)
-
-# This policy was introduced in 3.0.0 and does not allow for COMPILER_DEFINITIONS_<Config>,
-# anymore, but instead requires generator expressions like $<CONFIG:Debug> ... 
-# For now the current compile-flag, -definitions, and linker-flags setup shall remain as is.
-if(POLICY CMP0043)
-    cmake_policy(SET CMP0043 OLD)
-endif()
-
-if(MSVC)
-    include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/PlatformWindowsMSVC.cmake)
-elseif(WIN32 AND CMAKE_COMPILER_IS_GNUCXX)
-    include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/PlatformWindowsGCC.cmake)
-elseif(APPLE)
-    include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/PlatformMacOS.cmake)
-elseif(UNIX)
-    include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/PlatformLinuxGCC.cmake)
-else()
-    message(WARNING "Unsupported platform/compiler combination")
-endif()
 
 
- 
 
 #
 # Deployment/installation setup
@@ -171,6 +156,8 @@ create_revision_file(${CMAKE_BINARY_DIR}/revision ${INSTALL_ROOT})
 # Include subdirectories that contain project sources, documentation files, and packaging scripts
 #
 
-add_subdirectory(source)
+build_type_dependent_include("source" "Release" "")
+build_type_dependent_include("source" "Debug" "d")
+
 add_subdirectory(docs)
 add_subdirectory(packages)
