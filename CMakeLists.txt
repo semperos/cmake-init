@@ -29,7 +29,7 @@ project(${META_PROJECT_NAME} C CXX)
 
 option(OPTION_PORTABLE_INSTALL  "Install into a self-contained directory." OFF)
 option(OPTION_BUILD_STATIC      "Build static libraries." OFF)
-option(OPTION_BUILD_TESTS       "Build tests (if gmock and gtest are found)." ON)
+option(OPTION_BUILD_TESTS       "Build tests (if catch.hpp is found)." ON)
 
 if(OPTION_BUILD_STATIC)
    set(BUILD_SHARED_LIBS OFF)
@@ -54,7 +54,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Put projects in root folder by default
-set(IDE_FOLDER "")  
+set(IDE_FOLDER "")
 
 # Include custom cmake functions
 include(cmake/Custom.cmake)
@@ -72,7 +72,7 @@ endif()
 # Setup platform specifics (compile flags, etc., ...)
 
 # This policy was introduced in 3.0.0 and does not allow for COMPILER_DEFINITIONS_<Config>,
-# anymore, but instead requires generator expressions like $<CONFIG:Debug> ... 
+# anymore, but instead requires generator expressions like $<CONFIG:Debug> ...
 # For now the current compile-flag, -definitions, and linker-flags setup shall remain as is.
 if(POLICY CMP0043)
     cmake_policy(SET CMP0043 OLD)
@@ -143,7 +143,7 @@ else()
         if (APPLE)
             set(CMAKE_INSTALL_RPATH "@executable_path/${INSTALL_LIB}")
         else()
-            set(CMAKE_INSTALL_RPATH "$ORIGIN/${INSTALL_LIB}")       
+            set(CMAKE_INSTALL_RPATH "$ORIGIN/${INSTALL_LIB}")
         endif()
     else()
         if (APPLE)

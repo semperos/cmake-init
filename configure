@@ -34,6 +34,7 @@ then
     echo "#export CMAKE_PREFIX_PATH=\"/opt/Qt5.2.1/5.2.1/gcc_64/\"" >> ".localconfig/default"
     echo "#export GMOCK_HOME=/opt/gmock-1.7.0" >> ".localconfig/default"
     echo "#export GTEST_HOME=/opt/gtest-1.7.0" >> ".localconfig/default"
+    echo "#export CATCH_HOME=/home/user/opt/include" >> ".localconfig/default"
 
     touch ".localconfig/debug"
     echo "#!/bin/bash" >> ".localconfig/debug"

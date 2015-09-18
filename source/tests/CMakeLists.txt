@@ -10,7 +10,7 @@ function(add_test_without_ctest target)
 
     add_subdirectory(${target})
     add_dependencies(test ${target})
-    add_custom_command(TARGET test POST_BUILD 
+    add_custom_command(TARGET test POST_BUILD
         COMMAND $<TARGET_FILE:${target}> --gtest_output=xml:gtests.xml)
 
 endfunction()
@@ -18,20 +18,22 @@ endfunction()
 # Design decision: tests are enabled by default. If the required components are not found,
 # tests are disabled and a warning is printed, but configuration is still valid.
 if(OPTION_BUILD_TESTS)
-    find_package(GMOCK)
-    find_package(GTEST)
-    if(NOT GMOCK_FOUND OR NOT GTEST_FOUND)
-        message("Tests skipped: gmock and/or gtest not found")
+    # find_package(GMOCK)
+    # find_package(GTEST)
+    find_package(CATCH)
+    if(NOT CATCH_FOUND)
+        message("Tests skipped: catch.hpp not found")
     endif()
 endif()
 
 # Check if tests are enabled
-if(OPTION_BUILD_TESTS AND GMOCK_FOUND AND GTEST_FOUND)
+if(OPTION_BUILD_TESTS AND CATCH_FOUND)
 
     # Include gmock and gtest
     include_directories(
-        ${GMOCK_INCLUDE_DIR}
-        ${GTEST_INCLUDE_DIR}
+        # ${GMOCK_INCLUDE_DIR}
+        # ${GTEST_INCLUDE_DIR}
+        ${CATCH_INCLUDE_DIR}
     )
 
     # Target 'test'
