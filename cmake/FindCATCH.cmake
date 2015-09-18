@@ -1,9 +1,8 @@
 
 # CATCH_FOUND
 # CATCH_INCLUDE_DIR
-# CATCH_LIBRARIES
 
-find_path(CATCH_INCLUDE_DIR catch/catch.h
+find_path(CATCH_INCLUDE_DIR catch.hpp
     $ENV{CATCHDIR}/include
     $ENV{CATCH_HOME}/include
     $ENV{PROGRAMFILES}/CATCH/include
@@ -11,7 +10,7 @@ find_path(CATCH_INCLUDE_DIR catch/catch.h
     /usr/local/include
     /sw/include
     /opt/local/include
-    DOC "The directory where CATCH/CATCH.h resides")
+    DOC "The directory where catch.hpp resides")
 
 find_library(CATCH_LIBRARY
     NAMES catch
@@ -55,16 +54,16 @@ find_library(CATCH_LIBRARY_DEBUG
     /opt/local/lib
     DOC "The CATCH debug library")
 
-if (CATCH_LIBRARY AND CATCH_LIBRARY_DEBUG)
-    set(CATCH_LIBRARIES "optimized" ${CATCH_LIBRARY} "debug" ${CATCH_LIBRARY_DEBUG})
-elseif (CATCH_LIBRARY)
-    set(CATCH_LIBRARIES ${CATCH_LIBRARY})
-elseif (CATCH_LIBRARY_DEBUG)
-    set(CATCH_LIBRARIES ${CATCH_LIBRARY_DEBUG})
-else ()
-    set(CATCH_LIBRARIES "")
-endif ()
+# if (CATCH_LIBRARY AND CATCH_LIBRARY_DEBUG)
+#     set(CATCH_LIBRARIES "optimized" ${CATCH_LIBRARY} "debug" ${CATCH_LIBRARY_DEBUG})
+# elseif (CATCH_LIBRARY)
+#     set(CATCH_LIBRARIES ${CATCH_LIBRARY})
+# elseif (CATCH_LIBRARY_DEBUG)
+#     set(CATCH_LIBRARIES ${CATCH_LIBRARY_DEBUG})
+# else ()
+#     set(CATCH_LIBRARIES "")
+# endif ()
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(CATCH REQUIRED_VARS CATCH_INCLUDE_DIR CATCH_LIBRARIES)
-mark_as_advanced(CATCH_INCLUDE_DIR CATCH_LIBRARIES)
+find_package_handle_standard_args(CATCH REQUIRED_VARS CATCH_INCLUDE_DIR)
+mark_as_advanced(CATCH_INCLUDE_DIR)

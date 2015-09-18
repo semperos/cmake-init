@@ -1,21 +1,9 @@
 
-#include <gmock/gmock.h>
-
-
 #include <fiblib/Fibonacci.h>
 
-class fibonacci_test: public testing::Test
-{
-public:
-};
-
-TEST_F(fibonacci_test, CheckSomeResults)
-{
-    fiblib::Fibonacci fib;
-
-    EXPECT_EQ((unsigned int) 0, fib(0));
-    EXPECT_EQ((unsigned int) 1, fib(1));
-    EXPECT_EQ((unsigned int) 1, fib(2));
-    EXPECT_EQ((unsigned int)21, fib(8));
-    // ...
+TEST_CASE( "Factorials are computed", "[factorial]" ) {
+    REQUIRE( fib(0) == 0 );
+    REQUIRE( fib(1) == 1 );
+    REQUIRE( fib(2) == 1 );
+    REQUIRE( fib(8) == 21 );
 }
